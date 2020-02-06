@@ -108,13 +108,14 @@ class GaussElim(object):
 
     def plot(self,OmeRange):
         """
-        plot and save data
+        plot and save data：
+            linear interval is +10
         """
         data = pd.DataFrame({})
         for i in np.arange(10, OmeRange, 10):
-            ome = 10+i
+            ome = i
             data.loc[i,'ome'] = ome
-            data.loc[i, 'Coe'] =  np.abs(self.Coe(ome))
+            data.loc[i, 'Coe'] =  np.abs(self.Coe(ome))# abs
         data.to_csv("result.csv",index=None)
         plt.plot(np.log(data['ome']),data['Coe'])
         # plt.plot(data['ome'], data['Coe'])
@@ -123,14 +124,32 @@ class GaussElim(object):
         plt.show()
         return (data)
 
-
+    def plot2(self, OmeRange):
+        """
+        plot and save data
+            log interval: *10
+        :param OmeRange: omega range
+        :return: data in csv file and plot
+        """
+        data = pd.DataFrame({})
+        for i in np.arange(0, np.log10(OmeRange), 0.1):
+            ome = 10*10**i
+            data.loc[i, 'ome'] = ome
+            data.loc[i, 'Coe'] = np.abs(np.real(self.Coe(ome))) #real
+        data.to_csv("result.csv", index=None)
+        plt.plot(np.log10(data['ome']), data['Coe'])
+        # plt.plot(data['ome'], data['Coe'])
+        plt.xlabel('omega(log)')
+        plt.ylabel('Coe')
+        plt.show()
+        return (data)
 
 t = 1.01
 m = 10
 omega = 10
 test = GaussElim(1.01,10,10)
-OmegaRange = 1000
-test.plot(OmegaRange)
+OmegaRange = 10**15
+test.plot2(OmegaRange)
 
 
 
