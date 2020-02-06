@@ -147,7 +147,7 @@ class GaussElim(object):
 t = 1.01
 m = 10
 omega = 10
-test = GaussElim(1.01,10,10)
+test = GaussElim(t,m,omega)
 OmegaRange = 10**15
 test.plot2(OmegaRange)
 
