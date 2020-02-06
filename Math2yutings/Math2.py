@@ -111,12 +111,13 @@ class GaussElim(object):
         plot and save data
         """
         data = pd.DataFrame({})
-        for i in range(OmeRange):
+        for i in np.arange(10, OmeRange, 10):
             ome = 10+i
             data.loc[i,'ome'] = ome
             data.loc[i, 'Coe'] =  np.abs(self.Coe(ome))
         data.to_csv("result.csv",index=None)
-        plt.plot(data['ome'],data['Coe'])
+        plt.plot(np.log(data['ome']),data['Coe'])
+        # plt.plot(data['ome'], data['Coe'])
         plt.xlabel('omega')
         plt.ylabel('Coe')
         plt.show()
